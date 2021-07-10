@@ -1,6 +1,7 @@
 <template>
   <nav
     class="
+      pd-header
       bg-gray-800
       fixed
       w-screen
@@ -10,7 +11,7 @@
       duration-500
     "
     :class="{
-      'bg-opacity-20': isAtTheTop,
+      'bg-opacity-0': isAtTheTop,
       'bg-opacity-100': !isAtTheTop,
     }"
   >
@@ -81,9 +82,18 @@
             sm:items-stretch sm:justify-between
           "
         >
-          <div class="flex-shrink-0 flex items-center">
-            <span class="text-gray-200 uppercase font-header font-bold text-2xl"
-              >Predominant</span
+          <div class="pd-header__logo flex-shrink-0 flex items-center">
+            <a
+              href="#home"
+              class="
+                logo
+                relative
+                text-gray-200
+                uppercase
+                font-header font-bold
+                text-2xl
+              "
+              >Predominant</a
             >
           </div>
           <div class="hidden sm:block sm:ml-6">
@@ -94,16 +104,24 @@
                 :key="link.anchor"
                 :href="link.anchor"
                 class="
+                  pd-header__link
                   uppercase
+                  h-16
+                  flex
+                  items-center
                   text-gray-200
-                  hover:bg-gray-600 hover:text-white
+                  hover:text-blue-500
+                  bg-white bg-opacity-0
+                  hover:bg-opacity-10
                   px-3
-                  py-2
-                  rounded-md
-                  font-medium
-                  text-lg
+                  font-sm
+                  text-sm
+                  transition-all
+                  ease-in-out
+                  duration-500
                 "
-                >{{ link.title }}</a
+              >
+                <span>{{ link.title }}</span></a
               >
             </div>
           </div>
@@ -120,15 +138,20 @@
           :key="link.anchor"
           :href="link.anchor"
           class="
+            block
             uppercase
             text-center text-gray-200
-            hover:bg-gray-600 hover:text-white
-            block
+            hover:text-blue-500
+            bg-white bg-opacity-0
+            hover:bg-opacity-25
             px-3
             py-2
             rounded-md
-            text-lg
-            font-medium
+            text-sm
+            font-sm
+            transition-colors
+            ease-in-out
+            duration-500
           "
           @click="toggleMenu"
           >{{ link.title }}</a
@@ -141,36 +164,17 @@
 <script lang="ts">
 import { Vue, Component } from 'nuxt-property-decorator';
 
-type Link = {
-  anchor: string;
-  title: string;
-};
-
 @Component
 export default class Header extends Vue {
-  links: Link[] = [
-    {
-      anchor: '#home',
-      title: 'Home',
-    },
-    {
-      anchor: '#showreel',
-      title: 'Showreel',
-    },
-    {
-      anchor: '#about-me',
-      title: 'About Me',
-    },
-    {
-      anchor: '#contact-me',
-      title: 'Contact Me',
-    },
-  ];
-
   isAtTheTop = true;
   isMenuOpen = false;
 
+  get links() {
+    return this.$accessor.links;
+  }
+
   mounted() {
+    this.handleScroll();
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -187,3 +191,29 @@ export default class Header extends Vue {
   }
 }
 </script>
+
+<style lang="scss">
+.pd-header {
+  &__link {
+    position: relative;
+    overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.1em;
+      background-color: #3b82f6;
+      transition: transform 500ms;
+      transform: translate3d(-100%, 0, 0);
+    }
+
+    &:hover::after,
+    &:focus::after {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+</style>

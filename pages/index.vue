@@ -5,6 +5,7 @@
     <div id="showreel" class="bg-blue-500 h-screen"></div>
     <div id="about-me" class="bg-blue-700 h-screen"></div>
     <div id="contact-me" class="bg-blue-900 h-screen"></div>
+    <Footer />
   </div>
 </template>
 
