@@ -45,8 +45,6 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
     // https://typed-vuex.roe.dev/
@@ -60,7 +58,23 @@ export default {
   content: {},
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-  build: {},
+  build: {
+    extend(config, { isDev }) {
+      config.module.rules.push({
+        test: /\.vue$/,
+        loader: 'vue-svg-inline-loader',
+        options: {
+          inline: {
+            keyword: 'v-svg',
+          },
+        },
+      });
+      // Sets webpack's mode to development if `isDev` is true.
+      if (isDev) {
+        config.mode = 'development';
+      }
+    },
+  },
 
   // Added by Me
   target: 'static',

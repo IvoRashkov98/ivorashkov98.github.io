@@ -18,7 +18,6 @@
     <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex items-center justify-between h-16">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
-          <!-- Mobile menu button-->
           <button
             type="button"
             class="
@@ -97,8 +96,7 @@
             >
           </div>
           <div class="hidden sm:block sm:ml-6">
-            <div class="flex space-x-4">
-              <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <div class="flex space-x-4 h-full">
               <a
                 v-for="link in links"
                 :key="link.anchor"
@@ -106,13 +104,10 @@
                 class="
                   pd-header__link
                   uppercase
-                  h-16
                   flex
                   items-center
                   text-gray-200
                   hover:text-blue-500
-                  bg-white bg-opacity-0
-                  hover:bg-opacity-10
                   px-3
                   font-sm
                   text-sm
@@ -129,10 +124,8 @@
       </div>
     </div>
 
-    <!-- Mobile menu, show/hide based on menu state. -->
     <div v-show="isMenuOpen" id="mobile-menu" class="sm:hidden">
       <div class="px-2 pt-2 pb-3 space-y-1">
-        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
         <a
           v-for="link in links"
           :key="link.anchor"
